@@ -1,0 +1,17 @@
+{
+    "domain": "viomi_vacuum",
+    "name": "Viomi Vacumm",
+    "config_flow": true,
+    "version": "0.0.1",
+    "documentation": "https://github.com/tsunglung/ViomiVacuum",
+    "issue_tracker": "https://github.com/tsunglung/ViomiVacuum/issues",
+    "dependencies": [
+    ],
+    "codeowners": [
+        "@tsunglung"
+    ],
+    "requirements": [
+        "construct>=2.9.45",
+        "python-miio>=0.5.0.1"
+    ]
+}

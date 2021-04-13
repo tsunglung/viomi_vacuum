@@ -1,0 +1,20 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured"
+        },
+        "error": {
+            "connection_error": "Can't connect to Viomi Vacuum."
+        },
+        "flow_title": "Viomi Vacuum: {name}",
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "token": "Token"
+                },
+                "description": "Please enter connection settings of your Viomi Vacuum."
+            }
+        }
+    }
+}
