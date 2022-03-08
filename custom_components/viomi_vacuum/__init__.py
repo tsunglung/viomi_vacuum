@@ -14,7 +14,7 @@ from homeassistant.const import (
     CONF_NAME,
     CONF_TOKEN,
 )
-from miio import Vacuum
+
 from .vacuum import ViomiVacuum
 
 _LOGGER = logging.getLogger(__name__)

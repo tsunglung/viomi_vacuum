@@ -5,7 +5,7 @@ from functools import partial
 import logging
 
 
-from miio import DeviceException, Vacuum
+from miio import DeviceException, RoborockVacuum
 import voluptuous as vol
 from homeassistant.config_entries import SOURCE_IMPORT
 from homeassistant.components.vacuum import (
@@ -181,7 +181,7 @@ async def async_setup_entry(hass, config, async_add_entities):
 
     # Create handler
     _LOGGER.info("Initializing with host %s (token %s...)", host, token[:5])
-    vacuum = Vacuum(host, token)
+    vacuum = RoborockVacuum(host, token)
 
     mirobo = ViomiVacuum(name, vacuum)
     hass.data[DATA_KEY][host] = mirobo
