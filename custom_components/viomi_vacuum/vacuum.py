@@ -18,15 +18,7 @@ from homeassistant.components.vacuum import (
     STATE_IDLE,
     STATE_PAUSED,
     STATE_RETURNING,
-    SUPPORT_BATTERY,
-    SUPPORT_FAN_SPEED,
-    SUPPORT_LOCATE,
-    SUPPORT_PAUSE,
-    SUPPORT_RETURN_HOME,
-    SUPPORT_SEND_COMMAND,
-    SUPPORT_START,
-    SUPPORT_STATE,
-    SUPPORT_STOP,
+    VacuumEntityFeature,
     StateVacuumEntity,
 )
 from homeassistant.const import (
@@ -125,15 +117,15 @@ FAN_SPEEDS = {"Silent": 0, "Standard": 1, "Medium": 2, "Turbo": 3}
 
 
 SUPPORT_XIAOMI = (
-    SUPPORT_STATE
-    | SUPPORT_PAUSE
-    | SUPPORT_STOP
-    | SUPPORT_RETURN_HOME
-    | SUPPORT_FAN_SPEED
-    | SUPPORT_LOCATE
-    | SUPPORT_SEND_COMMAND
-    | SUPPORT_BATTERY
-    | SUPPORT_START
+    VacuumEntityFeature.STATE
+    | VacuumEntityFeature.PAUSE
+    | VacuumEntityFeature.STOP
+    | VacuumEntityFeature.RETURN_HOME
+    | VacuumEntityFeature.FAN_SPEED
+    | VacuumEntityFeature.LOCATE
+    | VacuumEntityFeature.SEND_COMMAND
+    | VacuumEntityFeature.BATTERY
+    | VacuumEntityFeature.START
 )
 
 
@@ -183,7 +175,7 @@ async def async_setup_entry(hass, config, async_add_entities):
     _LOGGER.info("Initializing with host %s (token %s...)", host, token[:5])
     vacuum = RoborockVacuum(host, token)
 
-    mirobo = ViomiVacuum(name, vacuum)
+    mirobo = ViomiVacuum(name, vacuum, token)
     hass.data[DATA_KEY][host] = mirobo
 
     async_add_entities([mirobo], update_before_add=True)
@@ -226,15 +218,21 @@ async def async_setup_entry(hass, config, async_add_entities):
 class ViomiVacuum(StateVacuumEntity):
     """Representation of a Viomi Vacuum cleaner robot."""
 
-    def __init__(self, name, vacuum):
+    def __init__(self, name, vacuum, token):
         """Initialize the Viomi vacuum cleaner robot handler."""
         self._name = name
         self._vacuum = vacuum
+        self._unique_id = token
 
         self._last_clean_point = None
 
         self.vacuum_state = None
         self._available = False
+
+    @property
+    def unique_id(self):
+        """Return the entity unique ID."""
+        return self._unique_id
 
     @property
     def name(self):
