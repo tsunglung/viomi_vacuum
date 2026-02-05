@@ -12,14 +12,9 @@ from homeassistant.components.vacuum import (
     ATTR_CLEANED_AREA,
     DOMAIN,
     PLATFORM_SCHEMA,
-    STATE_CLEANING,
-    STATE_DOCKED,
-    STATE_ERROR,
-    STATE_IDLE,
-    STATE_PAUSED,
-    STATE_RETURNING,
     VacuumEntityFeature,
     StateVacuumEntity,
+    VacuumActivity
 )
 from homeassistant.const import (
     ATTR_ENTITY_ID,
@@ -130,14 +125,14 @@ SUPPORT_XIAOMI = (
 
 
 STATE_CODE_TO_STATE = {
-    0: STATE_IDLE,
-    1: STATE_IDLE,
-    2: STATE_PAUSED,
-    3: STATE_CLEANING,
-    4: STATE_RETURNING,
-    5: STATE_DOCKED,
-    6: STATE_CLEANING,  # Vacuum & Mop
-    7: STATE_CLEANING   # Mop only
+    0: VacuumActivity.IDLE,
+    1: VacuumActivity.IDLE,
+    2: VacuumActivity.PAUSED,
+    3: VacuumActivity.CLEANING,
+    4: VacuumActivity.RETURNING,
+    5: VacuumActivity.DOCKED,
+    6: VacuumActivity.CLEANING,  # Vacuum & Mop
+    7: VacuumActivity.CLEANING   # Mop only
 }
 
 ALL_PROPS = ["run_state", "mode", "err_state", "battary_life", "box_type", "mop_type", "s_time",
